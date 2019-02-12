@@ -1,0 +1,162 @@
+﻿@model SabinoFarma.Models.Email
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        LoadingElementId = "loading-area",
+        LoadingElementDuration = 1000,
+        Url = Url.Action("Submit"),
+        OnBegin = "HideForm",
+        OnFailure = "ShowFailure",
+        UpdateTargetId = "message-area"
+    };
+}
+<main>
+    <section class="well well4">
+        <div class="container">
+
+            <h2>
+
+                <small>
+                    Contato
+                </small>
+            </h2>
+        </div>
+        <br />
+        <br />
+        <section>
+            <div class="map map_height1">
+                <div id="google-map" class="map_model" data-zoom="16"></div>
+                <ul class="map_locations">
+                    <li data-x="-41.153309" data-y="-20.845685" data-basic="/Imagens/ponto.png" data-active="/Imagens/ponto-a.png">
+                        <div class="location">
+                            <h3 class="txt-clr1">
+                               Sabino
+                                <small>
+                                   Farma
+                                </small>
+                            </h3>
+                            <address>
+                                <dl>
+                                    <dt>Telefone: </dt>
+                                    <dd class="phone"><a href="callto:#"> 28 3521-3191 / 28 9 9940-5577</a></dd>
+                                </dl>
+                                <dl>
+                                    <dt>Endereço: </dt>
+                                    <dd> Rua Maria de Fátima Pim, Nº18, Caiçara,<br /> Cachoeiro de Itapemirim - ES</dd>
+                                </dl>
+                                <dl>
+                                    <dt>Horario de Funcionamento: </dt>
+                                    <dd> 07:00 ás 20:00</dd>
+                                </dl>
+                                <dl>
+                                    <dt> E-mail: </dt>
+                                    <dd><a href="mailto:sabinofarma@hotmail.com">sabinofarma@hotmail.com</a></dd>
+                                </dl>
+                            </address>
+
+                        </div>
+                    </li>
+        
+                </ul>
+            </div>
+        </section>
+        <div class="container">
+            <br />
+            <br />
+            <h2>
+                Fale
+                <small>
+                    Conosco
+                </small>
+            </h2>
+            <div class="row">
+                <div class="col-md-7">
+                    <div id="loading-area" class="load" style="display:none;">
+                        <div class='alert alert-info'><strong>Carregando...</strong></div>
+                    </div>
+
+
+                    <div id="message-area"></div>
+                    <div id="form-area">
+
+                        @using (Ajax.BeginForm(ajaxOptions))
+            {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <div id="contact-form" class='contact-form'>
+                                <div class="contact-form-loader"></div>
+                                <fieldset>
+                                    <label class="name">
+                                        @Html.TextBoxFor(m => m.FromName, new { @class = " ", placeholder = "Nome" })
+                                        @Html.ValidationMessageFor(m => m.FromName)
+                                    </label>
+
+                                    <label class="phone">
+                                        @Html.TextBoxFor(m => m.Telefone, new { @class = " ", placeholder = "Telefone" })
+                                        @Html.ValidationMessageFor(m => m.Telefone)
+                                    </label>
+                                    <label class="email">
+                                        @Html.TextBoxFor(m => m.FromEmail, new { @class = "", placeholder = "Email" })
+                                        @Html.ValidationMessageFor(m => m.FromEmail)
+                                    </label>
+
+                                    <label class="message">
+                                        @Html.TextAreaFor(m => m.Message, new { @class = " ", placeholder = "Descrição" })
+                                        @Html.ValidationMessageFor(m => m.Message)
+                                    </label>
+
+                                    <!--  <label class="recaptcha"> <span class="empty-message">*This field is required.</span> </label> -->
+
+                                    <div class="btn-wr text-primary">
+                                        <button class="btn btn-primary" type="submit" value="Send">Enviar</button>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="modal fade response-message">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                                &times;
+                                            </button>
+                                            <h4 class="modal-title">Modal title</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            You message has been sent! We will be in touch soon.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                }
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="box">
+                        <div class="box-icon">
+                            <small class="fa fa-phone" aria-hidden="true"></small>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 info">
+
+                                <h4 class="text-center">Vem, fale Conosco!</h4>
+                                <br />
+                                <ul class="contact-info">
+                                    <li><i class="fa fa-map-marker"></i>Rua Maria de Fátima Pim, Nº18, Caiçara, Cachoeiro de Itapemirim - ES</li>
+                                    <li><i class="fa fa-phone"></i>28 3521-3191 / 28 9 9940-5577</li>
+                                    <li><i class="fa fa-bandcamp" aria-hidden="true"></i>08:00 ás 21:00</li>
+                                    <li><i class="fa fa-envelope"></i><a href="mailto:sabinofarma@hotmail.com">sabinofarma@hotmail.com</a></li>
+                                    <li><i class="fa fa-globe"></i><a href="www.sabinofarma.com.br">www.sabinofarma.com.br</a></li>
+                                </ul>
+                                <br />
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
